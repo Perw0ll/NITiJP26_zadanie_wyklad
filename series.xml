@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<series_catalog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                xsi:noNamespaceSchemaLocation="series_schema.xsd">
+
+  <series id="1">
+    <title>Better Call Saul</title>
+    <release_year>2015</release_year>
+    <seasons>6</seasons>
+    <genres>
+      <genre>Crime Drama</genre>
+      <genre>Legal Drama</genre>
+    </genres>
+    <platforms>
+      <platform>AMC</platform>
+      <platform>Netflix</platform>
+    </platforms>
+    <rating>9.0</rating>
+    <completed>true</completed>
+  </series>
+
+  <series id="2">
+    <title>Arcane</title>
+    <release_year>2021</release_year>
+    <seasons>2</seasons>
+    <genres>
+      <genre>Animation</genre>
+      <genre>Steampunk</genre>
+      <genre>Action</genre>
+    </genres>
+    <platforms>
+      <platform>Netflix</platform>
+    </platforms>
+    <rating>9.0</rating>
+    <completed>true</completed>
+  </series>
+
+  <series id="3">
+    <title>From</title>
+    <release_year>2022</release_year>
+    <seasons>4</seasons>
+    <genres>
+      <genre>Horror</genre>
+      <genre>Sci-Fi</genre>
+      <genre>Mystery</genre>
+    </genres>
+    <platforms>
+      <platform>MGM+</platform>
+      <platform>Max</platform>
+    </platforms>
+    <rating>7.8</rating>
+    <completed>false</completed>
+  </series>
+
+  <series id="4">
+    <title>Ojciec Mateusz</title>
+    <release_year>2008</release_year>
+    <seasons>34</seasons>
+    <genres>
+      <genre>Crime</genre>
+      <genre>Drama</genre>
+    </genres>
+    <platforms>
+      <platform>TVP1</platform>
+      <platform>TVP VOD</platform>
+    </platforms>
+    <rating>6.4</rating>
+    <completed>false</completed>
+  </series>
+
+</series_catalog>

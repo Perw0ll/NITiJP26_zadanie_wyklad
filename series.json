@@ -1,0 +1,44 @@
+{
+  "series_catalog": [
+    {
+      "id": 1,
+      "title": "Better Call Saul",
+      "release_year": 2015,
+      "seasons": 6,
+      "genres": ["Crime Drama", "Legal Drama"],
+      "platforms": ["AMC", "Netflix"],
+      "rating": 9.0,
+      "completed": true
+    },
+    {
+      "id": 2,
+      "title": "Arcane",
+      "release_year": 2021,
+      "seasons": 2,
+      "genres": ["Animation", "Steampunk", "Action"],
+      "platforms": ["Netflix"],
+      "rating": 9.0,
+      "completed": true
+    },
+    {
+      "id": 3,
+      "title": "From",
+      "release_year": 2022,
+      "seasons": 4,
+      "genres": ["Horror", "Sci-Fi", "Mystery"],
+      "platforms": ["MGM+", "Max"],
+      "rating": 7.8,
+      "completed": false
+    },
+    {
+      "id": 4,
+      "title": "Ojciec Mateusz",
+      "release_year": 2008,
+      "seasons": 34,
+      "genres": ["Crime", "Drama"],
+      "platforms": ["TVP1", "TVP VOD"],
+      "rating": 6.4,
+      "completed": false
+    }
+  ]
+}
