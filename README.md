@@ -1,54 +1,46 @@
 # Katalog Seriali i ich Ocen (TV Series Catalog)
 
-Repozytorium zawiera ustrukturyzowany zbiór danych przedstawiający wybrane seriale telewizyjne oraz streamingowe (*Better Call Saul*, *Arcane*, *From*, *Ojciec Mateusz*) wraz z ich ocenami, gatunkami, liczbą sezonów oraz platformami emisji. Nazwy pól i struktura danych zostały zapisane w języku angielskim zgodnie ze standardami projektowymi.
+Prosty zestaw danych o kilku serialach (*Better Call Saul*, *Arcane*, *From*, *Ojciec Mateusz*) — ich ocenach, gatunkach, liczbie sezonów i platformach, na których można je obejrzeć. Nazwy pól są po angielsku, żeby zachować spójność w kodzie i schematach.
 
-> **Cel projektu:** Przedstawienie tego samego zestawu danych w trzech różnych formatach tekstowych (**XML + XSD**, **JSON**, **CSV**) oraz analiza różnic w ich strukturze i sposobie odczytu.
-
----
-
-## Zawartość repozytorium
-
-* `series.xml` – główny zbiór danych zapisany w języku znaczników XML.
-* `series_schema.xsd` – schemat XML Schema definiujący strukturę dokumentu oraz ograniczenia typów danych.
-* `series.json` – reprezentacja danych w formacie JSON.
-* `series.csv` – płaska reprezentacja tabelaryczna w formacie CSV.
-* `README.md` – dokumentacja projektu.
+Całość powstała po to, żeby zestawić te same informacje w trzech popularnych formatach (**XML + XSD**, **JSON** i **CSV**) i zobaczyć w praktyce, czym różni się ich struktura, walidacja oraz wygoda odczytu.
 
 ---
 
-## Porównanie formatów danych
+## Co jest w środku?
+
+- `series.xml` – baza seriali zapisana w XML-u.
+- `series_schema.xsd` – schemat XSD pilnujący poprawnej struktury i typów danych w pliku XML.
+- `series.json` – te same dane w formacie JSON.
+- `series.csv` – płaska tabela w formacie CSV.
+- `README.md` – opis projektu, który właśnie czytasz.
+
+---
+
+## Porównanie formatów
 
 | Cecha | XML + XSD | JSON | CSV |
 | :--- | :--- | :--- | :--- |
-| **Struktura danych** | Hierarchiczna (drzewiasta) | Hierarchiczna (obiekty i tablice) | Płaska (wiersze i kolumny) |
-| **Definicja typów** | **Tak** – ścisła specyfikacja w `series_schema.xsd` | Brak wbudowanej (wymaga zewn. JSON Schema) | **Nie** – wszystko traktowane jest jako tekst |
-| **Obsługa list (`genres`, `platforms`)** | Zagnieżdżone znaczniki `<genre>` / `<platform>` | Natywne tablice `["a", "b"]` | Wymaga własnego separatora wewnątrz komórki (`\|`) |
-| **Rozmiar pliku (narzut)** | Duży (powtarzające się tagi zamykające) | Średni (klucze i nawiasy) | Najmniejszy (brak powtarzania nazw pól) |
-| **Czytelność dla człowieka** | Dobra przy wcięciach | Bardzo wysoka | Dobra tylko dla prostych tabel |
+| **Struktura** | Drzewiasta (znaczniki) | Drzewiasta (obiekty i tablice) | Płaska (wiersze i kolumny) |
+| **Walidacja typów** | Tak – wymuszana przez `series_schema.xsd` | Brak wbudowanej (potrzebny osobny JSON Schema) | Brak – wszystko jest zwykłym tekstem |
+| **Listy (`genres`, `platforms`)** | Zagnieżdżone tagi `<genre>` i `<platform>` | Natywne tablice `["a", "b"]` | Sklejone w jednej komórce separatorem `\|` |
+| **Rozmiar pliku** | Największy (powtarzające się tagi zamykające) | Średni (klucze i nawiasy) | Najmniejszy (same wartości po nagłówku) |
+| **Czytelność** | Dobra przy odpowiednich wcięciach | Bardzo wysoka | Dobra tylko przy prostych danych |
 
-### Główne różnice w praktyce:
-1. **Kontrola struktury (`series_schema.xsd`):** Schemat XSD określa dokładną kolejność znaczników i dopuszczalne zakresy wartości (np. pole `<rating>` od `0.0` do `10.0`, a `<seasons>` jako dodatnia liczba całkowita).
-2. **Zagnieżdżanie danych:** Seriale takie jak *Arcane* czy *From* mają po kilka gatunków i platform. W **XML** i **JSON** są one osobnymi elementami listy, natomiast w **CSV** trzeba było połączyć je znakiem `|` w jednej komórce.
-3. **Atrybuty vs klucze:** W XML identyfikator `id` został zapisany jako atrybut znacznika (`<series id="1">`), podczas gdy w JSON i CSV jest zwykłym polem/kolumną.
+### Co widać w praktyce?
 
----
-
-## Jak czytać i otwierać pliki?
-
-Wszystkie pliki są plikami tekstowymi kodowanymi w **UTF-8**, dzięki czemu można je otworzyć bezpośrednio w przeglądarce na GitHubie, w dowolnym edytorze tekstu (np. *Notatnik*, *VS Code*, *Notepad++*) lub w dedykowanych aplikacjach:
-
-1. **`series.csv` (arkusze kalkulacyjne):**
-   * Najwygodniej otworzyć w programach **Microsoft Excel**, **LibreOffice Calc** lub **Google Sheets**, wybierając przecinek (`,`) jako separator kolumn.
-   * Na **GitHubie** plik po kliknięciu automatycznie wyświetla się jako czytelna tabela z możliwością wyszukiwania.
-2. **`series.json` (przeglądarki i edytory):**
-   * Można otworzyć bezpośrednio w przeglądarce internetowej (np. **Mozilla Firefox**, **Google Chrome**), która automatycznie sformatuje strukturę obiektów i pozwoli zwijać poszczególne rekordy.
-3. **`series.xml` oraz `series_schema.xsd` (przeglądarki i edytory XML):**
-   * Po otwarciu w przeglądarce internetowej dane wyświetlają się w formie przejrzystego drzewa znaczników, które można rozwijać i zwijać.
+- **Pilnowanie poprawności danych:** Dzięki `series_schema.xsd` parser od razu odrzuci błędny plik XML – schemat pilnuje kolejności tagów oraz zakresów wartości (np. `<rating>` musi mieścić się między `0.0` a `10.0`, a `<seasons>` być dodatnią liczbą całkowitą).
+- **Kilka wartości w jednym polu:** Seriale takie jak *Arcane* czy *From* mają po kilka gatunków i platform. W XML-u i JSON-ie można je wygodnie zapisać jako listę, ale w płaskim CSV trzeba było ratować się separatorem `|` wewnątrz jednej komórki.
+- **Sposób zapisu ID:** W XML-u identyfikator trafił jako atrybut do tagu otwierającego (`<series id="1">`), natomiast w JSON-ie i CSV jest po prostu kolejnym polem lub kolumną.
 
 ---
 
-## Podsumowanie
+## Jak to otworzyć?
 
-* Do szybkiego przeglądania w formie tabeli najlepiej sprawdza się plik **`series.csv`**.
-* Do lekkiej wymiany danych z zachowaniem list i zagnieżdżeń służy **`series.json`**.
-* Do pełnego opisu struktury oraz narzucenia ścisłych reguł dotyczących typów i zakresu wartości wykorzystywana jest para plików **`series.xml`** i **`series_schema.xsd`**.
+Wszystkie pliki są zapisane w **UTF-8**, więc podejrzysz je bezpośrednio tutaj na GitHubie albo w dowolnym edytorze kodu (np. VS Code). Jeśli wolisz wygodniejszy podgląd:
+
+- **`series.csv`** najlepiej wrzucić do Excela, LibreOffice Calc lub Google Sheets (jako separator kolumn wybierz przecinek `,`). Na GitHubie plik od razu renderuje się jako przeszukiwalna tabela.
+- **`series.json`** i **`series.xml`** (razem z `series_schema.xsd`) możesz przeciągnąć bezpośrednio do okna przeglądarki (Chrome, Firefox) – automatycznie sformatuje ona strukturę i pozwoli zwijać poszczególne gałęzie.
+
+---
+
+**Krótko mówiąc:** `series.csv` wygrywa, gdy chcesz szybko rzucić okiem na tabelkę, `series.json` najwygodniej przesyłać między aplikacjami, a duet `series.xml` + `series_schema.xsd` sprawdza się tam, gdzie liczy się rygorystyczna kontrola struktury i typów.
